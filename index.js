@@ -83,7 +83,7 @@ console.log(productoRandom)
 
 const express = require('express')
 const app = express()
-const puerto = 8070
+const puerto = 8080
 
 app.get('/productos', async(req, res)=>{
     let respuesta = await ContenedorProducto.getAll()
@@ -94,6 +94,6 @@ app.get('/productoRandom', async(req, res)=>{
     res.send(respuesta)
 })
 app.listen(puerto, ()=>{
-    console.log("hola, esoy escuchando")
+    console.log("Servidor escuchando...")
 })
 
