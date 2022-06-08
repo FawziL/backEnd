@@ -78,8 +78,7 @@ const procesar = async() => {
 }
 //procesar()
 
-let productoRandom = Math.floor((Math.random() * (1-4))+4);
-console.log(productoRandom)
+
 
 const express = require('express')
 const app = express()
@@ -90,6 +89,9 @@ app.get('/productos', async(req, res)=>{
     res.send(respuesta)
 })
 app.get('/productoRandom', async(req, res)=>{
+    let productos = await ContenedorProducto.getAll()
+    let productoRandom = Math.floor((Math.random() * (0-productos.length))+productos.length+1);
+    console.log(productoRandom)
     let respuesta = await ContenedorProducto.getById(productoRandom)
     res.send(respuesta)
 })
