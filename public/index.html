@@ -4,15 +4,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
     <title>Document</title>
 </head>
 <body>
-    <h1>ENCUESTA</h1>
-    <form action="/api/productos"  method="POST">
-        Nombre: <input type="text" name="nombre">
-        Apellido: <input type="text" name="apellido">
-        Edad: <input type="number" name="edad">
-        <input type="submit" value="subir">
-    </form>
+    <div>
+        <h1>Ingresa el producto</h1>
+        <form action="/productos"  method="POST">
+            Nombre: <input type="text" name="nombre">
+            <br>
+            Precio: <input type="number" name="price">
+            <br>
+            Imagen: <input type="text" name="thumbel">
+            <br>
+            <input type="submit" value="subir" class="boton">
+        </form>
+    </div>
+   
 </body>
 </html>
