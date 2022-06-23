@@ -2,8 +2,6 @@
     const app = express()
     const puerto = 8080
     const rutas = require('./routes/index')
-    const handlebars = require('express-handlebars')
-    const path = require('path')
 
 
     app.use(express.json())
@@ -13,15 +11,8 @@
 
 
     
-    app.engine('hbs', 
-    handlebars({
-      extname: '.hbs',
-      defaultLayout: 'main.hbs',
-    }))
-    
-
-    app.set('view engine', 'hbs')
-    app.set('views', './views')
+    app.set('views', './views');
+    app.set('view engine', 'pug');
     
     
 
