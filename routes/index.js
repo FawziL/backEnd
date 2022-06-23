@@ -1,29 +1,21 @@
-const express = require('express')
 const { Router } = require('express')
 const productos = require('../api/productos')
 const routes = Router()
 
-
 const productApi = new productos()
 
+routes.get('/productos', (req, res) => {
+    const products = productApi.getProducts()
+    res.render("vistaProductos", {
+        productos: products,
+        hayProductos: products.length
+    });
+});
 
-routes.use(express.json())
-routes.use(express.urlencoded({ extended: true }))
-    
-routes.get('/', (req, res) => {
-    res.json(productApi.getProducts())
-})
-routes.get('/:id', (req, res) => {
-    res.json(productApi.getById(req.params.id))
-})
-routes.post('/', (req, res) => {
-    res.json(productApi.postProducts(req.body))
-}) 
-routes.put('/:id', (req, res) => {
-    res.json(productApi.putProducts(req.body, req.params.id))
-})
-routes.delete('/:id', (req, res) => {
-    res.json(productApi.deleteProducts(req.params.id))
+routes.post('/productos', (req, res) => {
+    const producto = req.body
+    productApi.postProducts(producto)
+    res.redirect('/')
 })
 
 module.exports = routes

@@ -1,0 +1,53 @@
+<style>
+    body{
+        padding: 10px;
+    }
+    .table td,
+    .table th {
+        vertical-align: middle;
+        padding: 10px;
+        background-color: rgb(26, 24, 24);
+        color: white; 
+    }
+
+    h1 {
+        color: blue;
+    }
+    .botonProductos{
+    background-color: rgb(80, 80, 234);
+
+    padding: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+    color:black;
+}
+
+</style>
+
+<div>
+    <h1>Vista de Productos</h1>
+    <br>
+
+    {{#if hayProductos}}
+    <div >
+        <table class="table">
+            <tr>
+                <th>Nombre de producto</th>
+                <th>Precio:</th>
+                <th>Imagen</th>
+            </tr>
+
+            {{#each productos}}
+            <tr>
+                <td>{{this.name}}</td>
+                <td>{{this.price}}$</td>
+                <td><img width="50" src={{this.thumbnail}}></td>
+            </tr>
+            {{/each}}
+        </table>
+    </div>
+    {{else}}
+    <h3>No hay productos</h3>
+    {{/if}}
+    <br>
+    <a href="/" type="button" class="botonProductos">Cargar un nuevo producto</a>
