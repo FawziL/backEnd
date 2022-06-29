@@ -1,7 +1,10 @@
+body{
+    padding: 10px;
+}
 h1{
     color: rgb(0, 30, 255);
 }
-div{
+.form{
     background-color: rgba(219, 217, 217, 0.812);
     height: 350px;
     width: 350px;
@@ -19,11 +22,7 @@ input{
     margin-left: 290px;
 
 }
-.botonProductos{
-    background-color: rgb(80, 80, 234);
-    margin-left: 220px;
-    padding: 5px;
-    border-radius: 5px;
-    text-decoration: none;
-    color:black;
+h4{
+    margin: 0px;
+    text-align: center;
 }

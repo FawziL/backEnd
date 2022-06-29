@@ -5,22 +5,43 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"
+    integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/socket.io/socket.io.js"></script>
     <title>Document</title>
 </head>
 <body>
-    <div>
+    <div class="form">
         <h1>Ingresa el producto</h1>
-        <form action="/productos"  method="POST">
-            Nombre: <input type="text" name="name">
+        <form action="/"  method="POST" id="form">
+            Nombre: <input type="text" name="name" id="inputName">
             <br>
-            Precio: <input type="number" name="price">
+            Precio: <input type="number" name="price" id="inputPrice">
             <br>
-            Imagen: <input type="text" name="thumbnail">
+            Imagen: <input type="text" name="thumbnail" id="inputEmail">
             <br>
             <input type="submit" value="subir" class="boton">
-            <a class="botonProductos" href="/productos">Ir a productos</a>
         </form>
+        <div id="noProducts">
     </div>
-   
+
+    </div>
+
+    <h3> Lista de Productos:</h3>
+    <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Imagen</th>
+                </tr>
+            </thead>
+            <tbody id="productosTabla" >  
+            </tbody> 
+    </table>
+
+
+    <script src="./main.js"></script>
 </body>
 </html>
