@@ -1,1 +1,0 @@
-[{"title":"1dddd","price":"precio","thumbnail":"url","id":1},{"title":"222dd","price":"precio","thumbnail":"url","id":2},{"title":"1dddd","price":"precio","thumbnail":"url","id":3}]
