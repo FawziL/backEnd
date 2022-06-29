@@ -21,27 +21,43 @@
             <br>
             Imagen: <input type="text" name="thumbnail" id="inputEmail">
             <br>
-            <input type="submit" value="subir" class="boton">
+            <input type="submit" value="Subir" class="boton">
         </form>
-        <div id="noProducts">
+
+    
+
+        <h3> Lista de Productos:</h3>
+        <div id="noProducts"></div>
+        
+        <table class="table">
+                <thead id="productosTablaHead">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Imagen</th>
+                    </tr>
+                </thead>
+                <tbody id="productosTabla" >  
+                </tbody> 
+        </table>
     </div>
 
+    <div class="form">
+
+        <h1>Centro de mensajes</h1>
+
+        <form id="formMessage">
+            <input id="usernameInput" type="email" placeholder="ejemplo@gmail.com">
+            <hr>
+            <div id="messagesPool"></div>
+            <div>
+            <input id="messageInput" type="text" placeholder="Mensaje">
+            <input type="submit" value="Enviar"> 
+            </div>
+        </form>
     </div>
 
-    <h3> Lista de Productos:</h3>
-    <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Precio</th>
-                    <th scope="col">Imagen</th>
-                </tr>
-            </thead>
-            <tbody id="productosTabla" >  
-            </tbody> 
-    </table>
-
-
+    <script src="/socket.io/socket.io.js"></script>
     <script src="./main.js"></script>
 </body>
 </html>

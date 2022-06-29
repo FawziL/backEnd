@@ -4,7 +4,7 @@ const {Server: IOServer} = require('socket.io')
 const puerto = 8080
 const rutas = require('./routes/index')
 const path = require('path')
-
+const fs = require('fs')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -20,8 +20,29 @@ const serverExpress = app.listen(puerto, (error)=>{
       }
 })
 
-const io = new IOServer(serverExpress)
+
+
 const products = []
+const messages = []
+
+
+////GUARDAR CHAT EN EL ARCHIVO////////
+
+async function escribir(){
+    try{
+        await fs.promises.writeFile(path.join(__dirname,'/chat'), JSON.stringify(messages))
+        console.log('El chat ha sido guardado')
+    }catch(err){
+        console.log('No se pudo guardar el chat', err)
+    }
+
+}
+
+
+
+
+
+const io = new IOServer(serverExpress)
 io.on('connection', socket =>{
     console.log(`Se conectó un usuario ${socket.id}`) 
     io.emit('client:price:thumbnail', products)
@@ -29,4 +50,14 @@ io.on('connection', socket =>{
         products.push(objectInfo)
         io.emit('client:price:thumbnail', products)
     })
+
+    io.emit('server:message', messages)
+    
+    socket.on('client:message', messageInfo => {
+        messages.push(messageInfo)
+        escribir()
+        io.emit('server:message', messages)
+    })
 })
+
+

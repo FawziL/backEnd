@@ -1,16 +1,16 @@
 body{
     padding: 10px;
+    display: flex;
 }
 h1{
     color: rgb(0, 30, 255);
 }
 .form{
     background-color: rgba(219, 217, 217, 0.812);
-    height: 350px;
     width: 350px;
     font-size: 20px;
     padding: 10px;
-
+    margin: 10px;
 }
 input{
     margin: 10px ;
@@ -19,8 +19,9 @@ input{
 }
 .boton{
     background-color: rgb(78, 193, 78);
-    margin-left: 290px;
-
+}
+.botonChat{
+    background-color: rgb(55, 107, 210);
 }
 h4{
     margin: 0px;
