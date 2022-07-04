@@ -5,14 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "author": "Fawzi Lutfallah",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.1",
-    "express-handlebars": "^5.2.0",
-    "nodemon": "^2.0.16",
-    "socket.io": "^4.5.1"
+    "nodemon": "^2.0.16"
   }
 }
