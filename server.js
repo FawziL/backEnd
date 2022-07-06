@@ -5,11 +5,11 @@
 
 
 
+
     app.use(express.json())
     app.use(express.urlencoded({ extended: true }))
-
-    app.use('/index.html', express.static(`${__dirname}/public`))
-    app.use('/api/productos', rutas)
+    app.use(express.static('public'))
+    app.use('/', rutas)
     
     app.listen(puerto, ()=>{
         console.log("Servidor escuchando...")

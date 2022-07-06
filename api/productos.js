@@ -1,47 +1,60 @@
+const { promises: fs } = require('fs')
+
 class productos {
-    constructor() {
-        this.productos = []
-        this.id = 0
+    constructor(nombre) {
+      this.nombre = nombre 
     }
-
-    getById(id) {
-        const foundProduct = this.productos.find(prod => prod.id === Number(id))
-        return foundProduct || { error: 'producto no encontrado' }
+    postProducts = async(producto) => {
+        let productList = await this.getProducts()
+        let id = productList.length > 0 ? productList[productList.length - 1].id : 0
+        producto.id = id + 1
+        producto.timestamp = Date.now()
+        productList.push(producto)
+        try {
+            await fs.writeFile(this.nombre, JSON.stringify(productList, null, 2))
+            return {id:producto.id}
+        } catch (error) {
+            throw new Error(`Error al guardar: ${error}`)
+        }
     }
-
-    getProducts() {
-        return [...this.productos]
+    getProducts = async () => {
+        try {
+            const allProducts = await fs.readFile(this.nombre, 'utf-8')
+            return JSON.parse(allProducts)   
+        } catch (error) {
+            return []
+        }
     }
-
-    postProducts(prod) {
-        const postProduct = { ...prod, id: ++this.id }
-        this.productos.push(postProduct)
-        return postProduct
+    getById = async(id) => {
+        const products = await this.getProducts()
+        const foundProduct = products.find(product => product.id === Number(id))
+        return foundProduct || { error: 'Producto no encontrado'}
     }
-
-    putProducts(prod, id) {
-        const newProd = { id: Number(id), ...prod }
-        const index = this.productos.findIndex(p => p.id == id)
+    putProducts = async(product, id) => {
+        const modifiedProduct = { id: Number(id), ...product }
+        const products = await this.getProducts()
+        const index = products.findIndex(product => product.id === Number(id))
         if (index !== -1) {
-            this.productos[index] = newProd
-            return newProd
+            products[index] = modifiedProduct
+            try {
+                await fs.writeFile(this.nombre, JSON.stringify(products, null, 2))
+                return modifiedProduct
+            } catch (error) {
+                throw new Error(`Error al modificar: ${error}`)
+            }
         } else {
-            return { error: 'producto no encontrado' }
+            return { error: 'Producto no encontrado'}
         }
     }
-
-    deleteProducts(id) {
-        const index = this.productos.findIndex(prod => prod.id == id)
-        if (index !== 0) {
-            return this.productos.splice(index, 1)
+    deleteProducts = async(id)  =>{
+        let products = await this.getProducts()
+        const index = products.findIndex(product => product.id === Number(id))
+        if (index !== -1) {
+            products = products.filter(product => product.id !== Number(id))
+            await fs.writeFile(this.nombre, JSON.stringify(products))
         } else {
-            return { error: 'producto no encontrado' }
-        }
+            return { error: 'Producto no encontrado'}
+        } 
     }
 }
-
 module.exports =  productos
-
-
-
-

@@ -1,29 +1,66 @@
-const express = require('express')
 const { Router } = require('express')
+const router = Router()
+
 const productos = require('../api/productos')
-const routes = Router()
+const ApiProductos = new productos('productos.json')
+const carrito = require('../api/carritos')
+const ApiCarrito = new carrito('carritos.json')
+const admin = true
 
-
-const productApi = new productos()
-
-
-routes.use(express.json())
-routes.use(express.urlencoded({ extended: true }))
-    
-routes.get('/', (req, res) => {
-    res.json(productApi.getProducts())
-})
-routes.get('/:id', (req, res) => {
-    res.json(productApi.getById(req.params.id))
-})
-routes.post('/', (req, res) => {
-    res.json(productApi.postProducts(req.body))
-}) 
-routes.put('/:id', (req, res) => {
-    res.json(productApi.putProducts(req.body, req.params.id))
-})
-routes.delete('/:id', (req, res) => {
-    res.json(productApi.deleteProducts(req.params.id))
+/*----------------------PRODUCTOS-------------------------- */
+router.get('/api/productos', async function (req, res) {
+  res.json(await ApiProductos.getProducts())
 })
 
-module.exports = routes
+router.get('/api/productos/:id', async function (req, res) {
+  res.json(await ApiProductos.getById(req.params.id))
+})
+
+router.post('/api/productos', async function(req, res) {
+  if (admin){
+    res.json(await ApiProductos.postProducts(req.body))}
+  else{
+    res.json({ error : -1, descripcion: "Ruta no autorizada" })}
+})
+
+router.put('/api/productos/:id', async function (req, res) {
+  if (admin){
+    res.json(await ApiProductos.putProducts(req.body, req.params.id))}
+  else{
+    res.json({ error : -1, descripcion: "Ruta no autorizada" })} 
+})
+
+router.delete('/api/productos/:id', async function (req, res) {
+  if (admin){
+    res.json(await ApiProductos.deleteProducts(req.params.id))}
+  else{
+    res.json({ error : -1, descripcion: "Ruta no autorizada" })
+  }
+})
+
+/*----------------------CARRITO-------------------------- */
+
+router.post('/api/carrito', async function (req, res) {
+  res.json(await ApiCarrito.save(req.body))
+})
+
+router.delete('/api/carrito/:id', async function (req, res) {
+  res.json(await ApiCarrito.deleteById(req.params.id))     
+})
+
+router.get('/api/carrito/:id/productos', async function (req, res){
+  res.json(await ApiCarrito.getProductsByCartId(req.params.id))
+})
+
+router.post('/api/carrito/:id/productos', async function(req, res){
+  const product = await ApiProductos.getById(req.body.productId)
+  res.json(await ApiCarrito.addProductToCart(req.params.id, product))
+})
+
+router.delete('/api/carrito/:id/productos/:id_prod', async function(req, res) {
+  res.json(await ApiCarrito.removeProductFromCart(req.params.id, req.params.id_prod))     
+})
+
+
+
+module.exports = router
