@@ -1,10 +1,10 @@
+
 const socket = io();
 
 const form = document.getElementById('form');
 const inputName = document.getElementById('inputName');
 const inputPrice = document.getElementById('inputPrice');
 const inputEmail = document.getElementById('inputEmail');
-const hola = document.getElementById('hola');
 
 function sendProducts (){
     try {
@@ -52,8 +52,35 @@ form.addEventListener('submit', event => {
 socket.on('client:price:thumbnail', productos=>{
     renderProducts(productos)
 });
-
-
+/*
+const database = require("./db");
+const save = async () => {
+    console.log("hola")
+    try {
+      await database.schema.dropTableIfExists("producto");
+  
+      await database.schema.createTable("producto", (aritculo) => {
+        aritculo.string("title", 15).notNullable();
+        aritculo.float("price");
+        aritculo.string("thumbnail");
+      });
+      console.log("Table created!");
+      const articles = [
+        { title: inputName.value, price: inputPrice.value, thumbnail: inputEmail.value}
+      ];
+  
+      await database("producto").insert(articles);
+      console.log("Product inserted!");
+  
+      database.destroy();
+    } catch (e) {
+      console.log(e);
+      database.destroy();
+    }
+};
+  
+save();
+*/
 ///////////////////////////SECCION CHAT//////////////////////
 
 const formMessage = document.querySelector('#formMessage')

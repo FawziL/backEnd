@@ -5,6 +5,7 @@ const puerto = 8080
 const rutas = require('./routes/index')
 const path = require('path')
 const fs = require('fs')
+const database = require('./db')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -20,8 +21,6 @@ const serverExpress = app.listen(puerto, (error)=>{
       }
 })
 
-
-
 const products = []
 const messages = []
 
@@ -30,16 +29,28 @@ const messages = []
 
 async function escribir(){
     try{
-        await fs.promises.writeFile(path.join(__dirname,'/chat'), JSON.stringify(messages))
-        console.log('El chat ha sido guardado')
+        await database.schema.dropTableIfExists('mensaje');
+        console.log('Ha caido el mensaje')
+        await database.schema.createTable('mensaje', table=>{
+            table.increments('id').primary()
+            table.string('email',50)
+            table.string('tiempochat')
+            table.string('message')
+        });
+        console.log('Se ha creado la tabla!')
+        console.log(messages)
+        await database.from('mensaje').insert(messages);
+        console.log('Los mensajes han sido guardados en la tabla!')
+        let rows = await database.from('mensaje').select("*");
+        rows.forEach((article)=>{ console.log(`${article['id']} ${article['email']} ${article['tiempochat']}: ${article['message']}`) });
+        
+        
     }catch(err){
-        console.log('No se pudo guardar el chat', err)
+        console.log('no se pudo guardar el chat', err)
+        
     }
 
 }
-
-
-
 
 
 const io = new IOServer(serverExpress)
