@@ -4,8 +4,7 @@ const {Server: IOServer} = require('socket.io')
 const puerto = 8080
 const rutas = require('./routes/index')
 const path = require('path')
-const fs = require('fs')
-const database = require('./db')
+const database = require('./SQLite3')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))

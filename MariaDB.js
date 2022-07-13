@@ -1,5 +1,5 @@
 const knex = require('knex')
-/*
+
 const configMariaDB = {
     client: 'mysql',
     connection: {
@@ -10,15 +10,7 @@ const configMariaDB = {
     },
     pool: { min: 0, max: 7 }
 }
-const database = knex(configMariaDB)
-*/
+const databaseMDB = knex(configMariaDB)
 
-const configSQLite3 = {
-    client: 'sqlite3',
-    connection: {
-        filename: './database/chat.sqlite'
-    },
-}
-const database = knex(configSQLite3)
 
-module.exports = database
+module.exports = databaseMDB
